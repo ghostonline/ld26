@@ -28,6 +28,7 @@ class Bat extends Entity
 
     public override function update()
     {
+        super.update();
         if (distanceFrom(player) < AgressionTrigger && entityVisible(player))
         {
             pursuitTimer = PursuitTimeout;
@@ -43,7 +44,11 @@ class Bat extends Entity
             moveTowards(lastPlayerX, lastPlayerY, PursuitVelocity, "level");
             pursuitTimer -= 1;
         }
-        super.update();
+
+        if (collideWith(player, x, y) != null)
+        {
+            player.attackFromBat(this);
+        }
     }
 
     function entityVisible(e:Entity)

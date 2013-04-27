@@ -5,6 +5,7 @@ import com.haxepunk.graphics.Image;
 import com.haxepunk.utils.Input;
 import com.haxepunk.utils.Key;
 import entities.LightMap;
+import entities.Bat;
  
 class Player extends Entity
 {
@@ -67,6 +68,11 @@ class Player extends Entity
             source.y = y;
             lightmap.updateSources();
         }
+    }
+
+    public function attackFromBat(bat:Bat)
+    {
+        com.haxepunk.HXP.scene = new scenes.GameScene();
     }
 
     var velocityX:Float;
