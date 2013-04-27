@@ -15,6 +15,7 @@ class Bat extends Entity
         addGraphic(img);
         this.level = level;
         this.player = player;
+        setHitbox(12, 4, 6, 2);
 
         layer = 60;
     }
