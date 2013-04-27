@@ -86,7 +86,7 @@ class LightMap extends Entity
         }
     }
 
-    inline function isTracable(startX:Int, startY:Int, endX:Int, endY:Int)
+    function isTracable(startX:Int, startY:Int, endX:Int, endY:Int)
     {
         var walker = BresenhamLine.walk(startX, startY, endX, endY);
         for (point in walker)

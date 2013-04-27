@@ -1,7 +1,7 @@
 package entities;
  
 import com.haxepunk.Entity;
-import com.haxepunk.graphics.Image;
+import com.haxepunk.graphics.Spritemap;
 import entities.Level;
 import entities.Player;
 import entities.LightMap;
@@ -16,7 +16,9 @@ class Bat extends Entity
     public function new(x:Float, y:Float, level:Level, player:Player, lightmap:LightMap)
     {
         super(x, y);
-        var img = new Image("gfx/bat.png");
+        var img = new Spritemap("gfx/bat.png", 16, 16);
+        img.add("static", [0,1,2,3,4], 30, true);
+        img.play("static", true);
         img.centerOrigin();
         addGraphic(img);
         this.level = level;
