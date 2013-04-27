@@ -49,8 +49,9 @@ class LightMap extends Entity
 
     function lightSource(source:Point, map:Array<Float>)
     {
-        var fallOffX = 9;
-        var fallOffY = 9;
+        var maxDistance = 4.5;
+        var fallOffX = Math.floor(maxDistance * 2);
+        var fallOffY = Math.floor(maxDistance * 2);
         var centerX = Math.floor(source.x / darkness.tileWidth);
         var centerY = Math.floor(source.y / darkness.tileHeight);
         var startX = centerX - Math.floor(fallOffX / 2);
@@ -64,12 +65,20 @@ class LightMap extends Entity
         {
             fallOffX -= (startX + fallOffX) - widthInTiles;
         }
+
+        var centerPoint = new nme.geom.Point(centerX, centerY);
+        var query = new nme.geom.Point();
         for (col in 0...fallOffX)
         {
             for (row in 0...fallOffY)
             {
-                var test = (startX + col) + (startY + row) * widthInTiles; 
-                map[test] = 1;
+                query.x = startX + col;
+                query.y = startY + row;
+                if (nme.geom.Point.distance(centerPoint, query) < maxDistance)
+                {
+                    var test = (startX + col) + (startY + row) * widthInTiles; 
+                    map[test] = 1;
+                }
             }
         }
     }
