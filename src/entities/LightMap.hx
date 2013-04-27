@@ -2,14 +2,17 @@ package entities;
  
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Tilemap;
+import entities.Level;
+import utils.BresenhamLine;
  
 typedef Point = { x:Float, y:Float }
 
 class LightMap extends Entity
 {
-    public function new()
+    public function new(level:Level)
     {
         super(0, 0);
+        this.level = level;
         darkness = new Tilemap("gfx/shadow.png", 640, 480, 16, 16);
         widthInTiles = Math.floor(darkness.width / darkness.tileWidth);
         heightInTiles = Math.floor(darkness.height / darkness.tileHeight);
@@ -49,7 +52,7 @@ class LightMap extends Entity
 
     function lightSource(source:Point, map:Array<Float>)
     {
-        var maxDistance = 4.5;
+        var maxDistance = 7.5;
         var fallOffX = Math.floor(maxDistance * 2);
         var fallOffY = Math.floor(maxDistance * 2);
         var centerX = Math.floor(source.x / darkness.tileWidth);
@@ -74,13 +77,26 @@ class LightMap extends Entity
             {
                 query.x = startX + col;
                 query.y = startY + row;
-                if (nme.geom.Point.distance(centerPoint, query) < maxDistance)
+                if (nme.geom.Point.distance(centerPoint, query) < maxDistance && isTracable(startX + col, startY + row, centerX, centerY))
                 {
                     var test = (startX + col) + (startY + row) * widthInTiles; 
                     map[test] = 1;
                 }
             }
         }
+    }
+
+    inline function isTracable(startX:Int, startY:Int, endX:Int, endY:Int)
+    {
+        var walker = BresenhamLine.walk(startX, startY, endX, endY);
+        for (point in walker)
+        {
+            if (level.isSolid(Math.floor(point.x), Math.floor(point.y)))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public function createPoint():Point
@@ -93,4 +109,5 @@ class LightMap extends Entity
     var source:Point;
     var widthInTiles:Int;
     var heightInTiles:Int;
+    var level:Level;
 }
