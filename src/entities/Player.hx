@@ -10,6 +10,8 @@ import entities.Bat;
 class Player extends Entity
 {
     static var MaxVelocity = 3;
+    static var PlayerTorchRadius = 200;
+    static var PlayerAmbientRadius = 32;
 
     public function new(x:Float, y:Float, lightmap:LightMap)
     {
@@ -25,13 +27,18 @@ class Player extends Entity
         Input.define("right", [Key.RIGHT, Key.D]);
         Input.define("up", [Key.UP, Key.W]);
         Input.define("down", [Key.DOWN, Key.S]);
+        Input.define("toggle_light", [Key.SHIFT, Key.E]);
 
         velocityX = 0;
         velocityY = 0;
 
         layer = 50;
         this.lightmap = lightmap;
-        source = lightmap.createPoint();
+        source = lightmap.createLight();
+        source.x = x;
+        source.y = y;
+        source.radius = PlayerTorchRadius;
+        lightmap.updateSources();
     }
 
     function handleInput()
@@ -54,6 +61,12 @@ class Player extends Entity
         if (Input.check("down"))
         {
             velocityY += MaxVelocity;
+        }
+
+        if (Input.pressed("toggle_light"))
+        {
+            source.radius = source.radius == PlayerAmbientRadius ? PlayerTorchRadius : PlayerAmbientRadius;
+            lightmap.updateSources();
         }
     }
 
@@ -78,5 +91,5 @@ class Player extends Entity
     var velocityX:Float;
     var velocityY:Float;
     var lightmap:LightMap;
-    var source:Point;
+    var source:LightPoint;
 }
