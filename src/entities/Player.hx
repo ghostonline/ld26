@@ -10,7 +10,7 @@ import entities.Bat;
 class Player extends Entity
 {
     static var MaxVelocity = 3;
-    static var PlayerTorchRadius = 100;
+    static var PlayerTorchRadius = 150;
     static var PlayerAmbientRadius = 32;
 
     public function new(x:Float, y:Float, lightmap:LightMap)
