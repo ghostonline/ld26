@@ -8,7 +8,7 @@ import entities.Player;
 class Bat extends Entity
 {
     static var AgressionTrigger = 70;
-    static var PursuitVelocity = 1;
+    static var PursuitVelocity = 2;
     static var PursuitTimeout = 90;
 
     public function new(x:Float, y:Float, level:Level, player:Player)
