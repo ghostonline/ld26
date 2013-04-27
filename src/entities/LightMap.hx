@@ -104,6 +104,13 @@ class LightMap extends Entity
         return source;
     }
 
+    public function isPointLit(x:Float, y:Float)
+    {
+        var tileX = Math.floor(x / darkness.tileWidth);
+        var tileY = Math.floor(y / darkness.tileHeight);
+        return map[tileX + tileY * widthInTiles] != 0;
+    }
+
     var darkness:Tilemap;
     var map:Array<Float>;
     var source:Point;

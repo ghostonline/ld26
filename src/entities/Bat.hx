@@ -4,6 +4,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 import entities.Level;
 import entities.Player;
+import entities.LightMap;
 import utils.BresenhamLine;
  
 class Bat extends Entity
@@ -12,7 +13,7 @@ class Bat extends Entity
     static var PursuitVelocity = 2;
     static var PursuitTimeout = 90;
 
-    public function new(x:Float, y:Float, level:Level, player:Player)
+    public function new(x:Float, y:Float, level:Level, player:Player, lightmap:LightMap)
     {
         super(x, y);
         var img = new Image("gfx/bat.png");
@@ -20,6 +21,7 @@ class Bat extends Entity
         addGraphic(img);
         this.level = level;
         this.player = player;
+        this.lightmap = lightmap;
         setHitbox(12, 4, 6, 2);
         pursuitTimer = -1;
 
@@ -29,7 +31,7 @@ class Bat extends Entity
     public override function update()
     {
         super.update();
-        if (distanceFrom(player) < AgressionTrigger && entityVisible(player))
+        if (lightmap.isPointLit(x, y) && entityVisible(player))
         {
             pursuitTimer = PursuitTimeout;
         }
@@ -70,6 +72,7 @@ class Bat extends Entity
 
     var level:Level;
     var player:Player;
+    var lightmap:LightMap;
     var pursuitTimer:Int;
     var lastPlayerX:Float;
     var lastPlayerY:Float;
