@@ -19,7 +19,7 @@ class GameScene extends Scene
         var level = new Level();
         var lightmap = new LightMap();
         var player = new Player(320, 240, lightmap);
-        var bat = new Bat(320, 24, level, player);
+        var bat = new Bat(120, 64, level, player);
         add(level);
         add(lightmap);
         add(player);

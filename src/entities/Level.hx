@@ -46,6 +46,11 @@ class Level extends Entity
         }
     }
 
+    public function isSolid(x:Int, y:Int)
+    {
+        return colliderMask.getTile(x, y);
+    }
+
     var background:Tilemap;
     var colliderMask:Grid;
 }
