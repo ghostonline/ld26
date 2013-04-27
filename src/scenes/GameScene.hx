@@ -16,8 +16,9 @@ class GameScene extends Scene
     public override function begin()
     {
         add(new Level());
-        add(new LightMap());
-        add(new Player(320, 240));
+        var lightmap = new LightMap();
+        add(lightmap);
+        add(new Player(320, 240, lightmap));
     }
 
 }
