@@ -15,6 +15,7 @@ class Level extends Entity
         mask = colliderMask;
         type = "level";
         setupLevel();
+        layer = 100;
     }
 
     function setupLevel()

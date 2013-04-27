@@ -26,6 +26,8 @@ class Player extends Entity
 
         velocityX = 0;
         velocityY = 0;
+
+        layer = 50;
     }
 
     function handleInput()
