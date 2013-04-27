@@ -46,11 +46,6 @@ class Level extends Entity
         }
     }
 
-    public override function update()
-    {
-        super.update();
-    }
-
     var background:Tilemap;
     var colliderMask:Grid;
 }

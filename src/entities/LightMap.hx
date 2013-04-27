@@ -79,11 +79,6 @@ class LightMap extends Entity
         return source;
     }
 
-    public override function update()
-    {
-        super.update();
-    }
-
     var darkness:Tilemap;
     var map:Array<Float>;
     var source:Point;
