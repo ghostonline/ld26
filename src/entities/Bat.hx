@@ -7,6 +7,10 @@ import entities.Player;
  
 class Bat extends Entity
 {
+    static var AgressionTrigger = 70;
+    static var PursuitVelocity = 1;
+    static var PursuitTimeout = 90;
+
     public function new(x:Float, y:Float, level:Level, player:Player)
     {
         super(x, y);
@@ -22,9 +26,19 @@ class Bat extends Entity
 
     public override function update()
     {
+        if (distanceFrom(player) < AgressionTrigger)
+        {
+            pursuitTimer = PursuitTimeout;
+        }
+        if (pursuitTimer >= 0)
+        {
+            moveTowards(player.x, player.y, PursuitVelocity, "level");
+            pursuitTimer -= 1;
+        }
         super.update();
     }
 
     var level:Level;
     var player:Player;
+    var pursuitTimer:Int;
 }
