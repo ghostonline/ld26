@@ -17,7 +17,7 @@ class Bat extends Entity
     {
         super(x, y);
         var img = new Spritemap("gfx/bat.png", 16, 16);
-        img.add("static", [0,1,2,3,4], 30, true);
+        img.add("static", [0,1,2,3,4], 15, true);
         img.play("static", true);
         img.centerOrigin();
         addGraphic(img);
