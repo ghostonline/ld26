@@ -16,7 +16,8 @@ class Player extends Entity
         img.centerOrigin();
         img.originY += 4;
         addGraphic(img);
-        setHitbox(12, 12, 6, 6);
+        setHitbox(16, 12, 8, 4);
+        collidable = true;
 
         Input.define("left", [Key.LEFT, Key.A]);
         Input.define("right", [Key.RIGHT, Key.D]);
@@ -54,7 +55,7 @@ class Player extends Entity
     {
         super.update();
         handleInput();
-        moveBy(velocityX, velocityY);
+        moveBy(velocityX, velocityY, "level");
     }
 
     var velocityX:Float;

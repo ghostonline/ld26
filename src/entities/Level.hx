@@ -13,6 +13,7 @@ class Level extends Entity
         addGraphic(background);
         colliderMask = new Grid(background.width, background.height, background.tileWidth, background.tileHeight);
         mask = colliderMask;
+        type = "level";
         setupLevel();
     }
 
