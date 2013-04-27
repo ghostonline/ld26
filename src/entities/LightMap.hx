@@ -49,14 +49,24 @@ class LightMap extends Entity
 
     function lightSource(source:Point, map:Array<Float>)
     {
-        var fallOff = 9;
+        var fallOffX = 9;
+        var fallOffY = 9;
         var centerX = Math.floor(source.x / darkness.tileWidth);
         var centerY = Math.floor(source.y / darkness.tileHeight);
-        var startX = centerX - Math.floor(fallOff / 2);
-        var startY = centerY - Math.floor(fallOff / 2);
-        for (col in 0...fallOff)
+        var startX = centerX - Math.floor(fallOffX / 2);
+        var startY = centerY - Math.floor(fallOffY / 2);
+        if (startX < 0)
         {
-            for (row in 0...fallOff)
+            fallOffX += startX;
+            startX = 0;
+        }
+        if (startX + fallOffX > widthInTiles - 1)
+        {
+            fallOffX -= (startX + fallOffX) - widthInTiles;
+        }
+        for (col in 0...fallOffX)
+        {
+            for (row in 0...fallOffY)
             {
                 var test = (startX + col) + (startY + row) * widthInTiles; 
                 map[test] = 1;
