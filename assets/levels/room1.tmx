@@ -53,5 +53,11 @@
   <object type="bat" x="556" y="117"/>
   <object type="bat" x="223" y="420"/>
   <object type="player" x="395" y="533"/>
+  <object type="torch" x="313" y="54"/>
+  <object type="torch" x="489" y="56"/>
+  <object type="torch" x="489" y="373"/>
+  <object type="torch" x="312" y="374"/>
+  <object type="torch" x="312" y="212"/>
+  <object type="torch" x="487" y="213"/>
  </objectgroup>
 </map>

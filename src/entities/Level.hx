@@ -3,6 +3,7 @@ package entities;
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Tilemap;
 import com.haxepunk.masks.Grid;
+import entities.LightMap;
 import haxe.xml.Fast;
 import nme.geom.Point;
  
@@ -73,6 +74,7 @@ class Level extends Entity
 
         // Load all entities
         bats = new Array<Point>();
+        torches = new Array<Point>();
         for (object in levelData.node.objectgroup.nodes.object)
         {
             var type = object.att.type;
@@ -84,6 +86,8 @@ class Level extends Entity
                     playerPos = new Point(x, y);
                 case "bat":
                     bats.push(new Point(x, y));
+                case "torch":
+                    torches.push(new Point(x, y));
             }
         }
     }
@@ -107,4 +111,5 @@ class Level extends Entity
     var colliderMask:Grid;
     public var playerPos:Point;
     public var bats:Array<Point>;
+    public var torches:Array<Point>;
 }

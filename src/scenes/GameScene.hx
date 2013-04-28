@@ -19,16 +19,26 @@ class GameScene extends Scene
     public override function begin()
     {
         var level = new Level();
-        var lightmap = new LightMap(level);
-        player = new Player(level.playerPos.x, level.playerPos.y, lightmap);
         add(level);
+        var lightmap = new LightMap(level);
         add(lightmap);
+
+        player = new Player(level.playerPos.x, level.playerPos.y, lightmap);
         add(player);
         for (batPos in level.bats)
         {
             var bat = new Bat(batPos.x, batPos.y, level, player, lightmap);
             add(bat);
         }
+
+        for (torchPos in level.torches)
+        {
+            var source = lightmap.createLight();
+            source.x = torchPos.x;
+            source.y = torchPos.y;
+            source.radius = 100;
+        }
+        lightmap.updateSources();
     }
 
     public override function update()
