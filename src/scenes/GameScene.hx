@@ -6,6 +6,7 @@ import entities.Level;
 import entities.Player;
 import entities.LightMap;
 import entities.Bat;
+import entities.Torch;
  
 class GameScene extends Scene
 {
@@ -37,6 +38,8 @@ class GameScene extends Scene
             source.x = torchPos.x;
             source.y = torchPos.y;
             source.radius = 100;
+            var torch = new Torch(torchPos.x, torchPos.y, source);
+            add(torch);
         }
         lightmap.updateSources();
     }
