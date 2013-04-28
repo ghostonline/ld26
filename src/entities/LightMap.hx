@@ -5,7 +5,19 @@ import com.haxepunk.graphics.Tilemap;
 import entities.Level;
 import utils.BresenhamLine;
  
-typedef LightPoint = { x:Float, y:Float, radius:Float }
+class LightPoint
+{
+    public function new()
+    {
+        x = 0;
+        y = 0;
+        radius = 0;
+    }
+
+    public var x:Float;
+    public var y:Float;
+    public var radius:Float;
+}
 
 class LightMap extends Entity
 {
@@ -17,7 +29,7 @@ class LightMap extends Entity
         widthInTiles = Math.floor(darkness.width / darkness.tileWidth);
         heightInTiles = Math.floor(darkness.height / darkness.tileHeight);
         addGraphic(darkness);
-        source = {x : 320, y: 240, radius:100};
+        sources = new Array<LightPoint>();
 
         map = new Array<Float>();
         for (ii in 0...widthInTiles * heightInTiles)
@@ -35,7 +47,10 @@ class LightMap extends Entity
         {
             map[ii] = 0;
         }
-        lightSource(source, map);
+        for (source in sources)
+        {
+            lightSource(source, map);
+        }
 
         for (ii in 0...widthInTiles * heightInTiles)
         {
@@ -101,6 +116,8 @@ class LightMap extends Entity
 
     public function createLight()
     {
+        var source = new LightPoint();
+        sources.push(source);
         return source;
     }
 
@@ -113,7 +130,7 @@ class LightMap extends Entity
 
     var darkness:Tilemap;
     var map:Array<Float>;
-    var source:LightPoint;
+    var sources:Array<LightPoint>;
     var widthInTiles:Int;
     var heightInTiles:Int;
     var level:Level;
