@@ -4,6 +4,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Tilemap;
 import com.haxepunk.masks.Grid;
 import haxe.xml.Fast;
+import nme.geom.Point;
  
 class Level extends Entity
 {
@@ -11,6 +12,7 @@ class Level extends Entity
     {
         super(0, 0);
         type = "level";
+        playerPos = new Point(0, 0);
         setupLevel();
         layer = 100;
     }
@@ -68,6 +70,22 @@ class Level extends Entity
             }
             rowIdx += 1;
         }
+
+        // Load all entities
+        bats = new Array<Point>();
+        for (object in levelData.node.objectgroup.nodes.object)
+        {
+            var type = object.att.type;
+            var x = Std.parseInt(object.att.x);
+            var y = Std.parseInt(object.att.y);
+            switch type
+            {
+                case "player":
+                    playerPos = new Point(x, y);
+                case "bat":
+                    bats.push(new Point(x, y));
+            }
+        }
     }
 
     public function isSolid(x:Int, y:Int)
@@ -87,4 +105,6 @@ class Level extends Entity
 
     var background:Tilemap;
     var colliderMask:Grid;
+    public var playerPos:Point;
+    public var bats:Array<Point>;
 }

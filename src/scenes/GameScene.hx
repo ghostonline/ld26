@@ -20,12 +20,15 @@ class GameScene extends Scene
     {
         var level = new Level();
         var lightmap = new LightMap(level);
-        player = new Player(200, 200, lightmap);
-        var bat = new Bat(120, 64, level, player, lightmap);
+        player = new Player(level.playerPos.x, level.playerPos.y, lightmap);
         add(level);
         add(lightmap);
         add(player);
-        add(bat);
+        for (batPos in level.bats)
+        {
+            var bat = new Bat(batPos.x, batPos.y, level, player, lightmap);
+            add(bat);
+        }
     }
 
     public override function update()
