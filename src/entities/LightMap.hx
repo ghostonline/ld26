@@ -13,7 +13,7 @@ class LightMap extends Entity
     {
         super(0, 0);
         this.level = level;
-        darkness = new Tilemap("gfx/shadow.png", 640, 480, 16, 16);
+        darkness = new Tilemap("gfx/shadow.png", level.getWidth(), level.getHeight(), 16, 16);
         widthInTiles = Math.floor(darkness.width / darkness.tileWidth);
         heightInTiles = Math.floor(darkness.height / darkness.tileHeight);
         addGraphic(darkness);
