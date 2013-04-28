@@ -6,6 +6,7 @@ import entities.Level;
 import entities.Player;
 import entities.LightMap;
 import utils.BresenhamLine;
+import nme.geom.Point;
  
 class Bat extends Entity
 {
@@ -33,19 +34,33 @@ class Bat extends Entity
     public override function update()
     {
         super.update();
-        if (lightmap.isPointLit(x, y) && entityVisible(player))
+        if (lightmap.isPointLit(x, y))
         {
-            pursuitTimer = PursuitTimeout;
+            var point = new Point(x, y);
+            var sourcePoint = new Point();
+            var nearestPointDistance:Float = 1000000;
+            for (source in lightmap.sources)
+            {
+                sourcePoint.x = source.x;
+                sourcePoint.y = source.y;
+                var dist = Point.distance(sourcePoint, point);
+                if (dist < nearestPointDistance && dist < source.radius)
+                {
+                    nearestPointDistance = dist;
+                    pursuitTimer = PursuitTimeout;
+                    target = source;
+                }
+            }
         }
 
         if (pursuitTimer >= 0)
         {
-            if (entityVisible(player))
+            if (pointVisible(target.x, target.y))
             {
-                lastPlayerX = player.x;
-                lastPlayerY = player.y;
+                lastTargetX = target.x;
+                lastTargetY = target.y;
             }
-            moveTowards(lastPlayerX, lastPlayerY, PursuitVelocity, "level");
+            moveTowards(lastTargetX, lastTargetY, PursuitVelocity, "level");
             pursuitTimer -= 1;
         }
 
@@ -55,12 +70,12 @@ class Bat extends Entity
         }
     }
 
-    function entityVisible(e:Entity)
+    function pointVisible(targetX:Float, targetY:Float)
     {
         var tileX = Math.floor(x / 16);
         var tileY = Math.floor(y / 16);
-        var tilePlayerX = Math.floor(e.x / 16);
-        var tilePlayerY = Math.floor(e.y / 16);
+        var tilePlayerX = Math.floor(targetX / 16);
+        var tilePlayerY = Math.floor(targetY / 16);
         var walker = BresenhamLine.walk(tileX, tileY, tilePlayerX, tilePlayerY);
         for (point in walker)
         {
@@ -76,6 +91,8 @@ class Bat extends Entity
     var player:Player;
     var lightmap:LightMap;
     var pursuitTimer:Int;
-    var lastPlayerX:Float;
-    var lastPlayerY:Float;
+
+    var target:LightPoint;
+    var lastTargetX:Float;
+    var lastTargetY:Float;
 }

@@ -130,7 +130,7 @@ class LightMap extends Entity
 
     var darkness:Tilemap;
     var map:Array<Float>;
-    var sources:Array<LightPoint>;
+    public var sources:Array<LightPoint>;
     var widthInTiles:Int;
     var heightInTiles:Int;
     var level:Level;
