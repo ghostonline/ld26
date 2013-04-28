@@ -13,6 +13,7 @@ class Torch extends Entity
         img.centerOrigin();
         addGraphic(img);
         this.source = source;
+        layer = 60;
     }
 
     var source:LightPoint;
