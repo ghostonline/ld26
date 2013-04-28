@@ -11,7 +11,7 @@ class Player extends Entity
 {
     static var MaxVelocity = 3;
     static var PlayerTorchRadius = 150;
-    static var PlayerAmbientRadius = 32;
+    static var PlayerAmbientRadius = 0;
 
     public function new(x:Float, y:Float, lightmap:LightMap)
     {
